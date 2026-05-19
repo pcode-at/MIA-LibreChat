@@ -7,6 +7,7 @@ const {
   createAxiosInstance,
   codeServerHttpAgent,
   codeServerHttpsAgent,
+  getCodeApiAuthHeaders,
 } = require('@librechat/api');
 
 const axios = createAxiosInstance();
@@ -29,6 +30,7 @@ async function getCodeOutputDownloadStream(fileIdentifier) {
       responseType: 'stream',
       headers: {
         'User-Agent': 'LibreChat/1.0',
+        ...getCodeApiAuthHeaders(),
       },
       httpAgent: codeServerHttpAgent,
       httpsAgent: codeServerHttpsAgent,
@@ -73,6 +75,7 @@ async function uploadCodeEnvFile({ req, stream, filename, entity_id = '' }) {
         'Content-Type': 'multipart/form-data',
         'User-Agent': 'LibreChat/1.0',
         'User-Id': req.user.id,
+        ...getCodeApiAuthHeaders(),
       },
       httpAgent: codeServerHttpAgent,
       httpsAgent: codeServerHttpsAgent,
@@ -143,6 +146,7 @@ async function batchUploadCodeEnvFiles({ req, files, entity_id = '', read_only =
         'Content-Type': 'multipart/form-data',
         'User-Agent': 'LibreChat/1.0',
         'User-Id': req.user.id,
+        ...getCodeApiAuthHeaders(),
       },
       httpAgent: codeServerHttpAgent,
       httpsAgent: codeServerHttpsAgent,

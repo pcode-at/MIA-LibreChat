@@ -15,6 +15,7 @@ const {
   codeServerHttpsAgent,
   extractCodeArtifactText,
   getExtractedTextFormat,
+  getCodeApiAuthHeaders,
 } = require('@librechat/api');
 const {
   Tools,
@@ -339,6 +340,7 @@ const processCodeOutput = async ({
       responseType: 'arraybuffer',
       headers: {
         'User-Agent': 'LibreChat/1.0',
+        ...getCodeApiAuthHeaders(),
       },
       httpAgent: codeServerHttpAgent,
       httpsAgent: codeServerHttpsAgent,
@@ -653,6 +655,7 @@ async function getSessionInfo(fileIdentifier) {
       params: queryParams,
       headers: {
         'User-Agent': 'LibreChat/1.0',
+        ...getCodeApiAuthHeaders(),
       },
       httpAgent: codeServerHttpAgent,
       httpsAgent: codeServerHttpsAgent,
@@ -900,6 +903,7 @@ async function readSandboxFile({ file_path, session_id, files }) {
       headers: {
         'Content-Type': 'application/json',
         'User-Agent': 'LibreChat/1.0',
+        ...getCodeApiAuthHeaders(),
       },
       httpAgent: codeServerHttpAgent,
       httpsAgent: codeServerHttpsAgent,
